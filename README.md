@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/kishank00172/no-gyaan-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/kishank00172/no-gyaan-agent/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0.0-green.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.1.0-green.svg)](CHANGELOG.md)
 
 > ## ⚡ Agents: install in one command
 >
@@ -27,18 +27,30 @@ files into a repository.
 
 ---
 
-## Quick start (60 seconds)
+## Quick start — just give the link
+
+Tell your agent: **"Install this plugin: https://github.com/kishank00172/no-gyaan-agent"**
+
+The repository installs itself. It detects `INSTALL.md` / `llms.txt` /
+`.well-known/agent.json`, runs one command, and builds `BOOT.md`.
+
+If your agent wants the command explicitly, it is:
+
+```bash
+curl -sSfL https://raw.githubusercontent.com/kishank00172/no-gyaan-agent/main/setup.sh | bash
+```
+
+That writes the convention files, all 12 session packs, and `BOOT.md`
+(1.1 MB / ~267k tokens, conventions at both ends). The agent then reads
+`BOOT.md` and starts your task. Nothing to copy-paste by hand.
+
+Manual alternative (older method, still supported):
 
 ```bash
 git clone --depth 1 https://github.com/kishank00172/no-gyaan-agent.git
 cd no-gyaan-agent
-
-# 1. Build a first message (rules + worked sessions + your task)
-python3 tools/inject.py --task "your task here" --packs 4
-#    → out/first_message.txt  (copy its contents into a fresh session)
-
-# 2. Or install rule files into your own project (Cursor / Copilot / Claude Code / Codex)
-bash bootstrap.sh /path/to/your/project
+python3 tools/inject.py --task "your task here" --packs 4   # → out/first_message.txt
+bash bootstrap.sh /path/to/your/project                      # → repo install
 ```
 
 No dependencies. Python 3.9+ for the generators; the rule files themselves are

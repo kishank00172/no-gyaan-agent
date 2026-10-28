@@ -1,7 +1,7 @@
 {
   "name": "execution-conventions",
-  "version": "2.0.0",
-  "generated_utc": "2026-10-28T13:04:26Z",
+  "version": "2.1.0",
+  "generated_utc": "2026-10-28T13:05:30Z",
   "canary_ping": "EFA-PING",
   "canary_pong": "EFA-PONG EFA-7B2F-9C41",
   "rule_files": [
@@ -30,8 +30,8 @@
   ],
   "files": {
     "README.md": {
-      "sha256": "1781262c50371a265ad9b3df8b3853cc64480ebd36f66af6fe755fe0396dda16",
-      "bytes": 6350,
+      "sha256": "4bb3594f9efded9f719ced34bc348caf074569c2c0e6500ef4b7e626f3845ef4",
+      "bytes": 6848,
       "role": "support"
     },
     "CHANGELOG.md": {
@@ -50,7 +50,7 @@
       "role": "support"
     },
     "VERSION": {
-      "sha256": "c28fcca53637bc88e124af1725df13cb98c69dedefd62fb3cdbe1cdb6b760624",
+      "sha256": "c89b87c262e9d5ffd20e73aac74a1772adcc9f5a21682cc33adcf5086e5fef5c",
       "bytes": 6,
       "role": "support"
     },
@@ -80,7 +80,7 @@
       "role": "rules"
     },
     "BUNDLE.md": {
-      "sha256": "31d90c9778ed8fe2c0c5bf7b81ef352006c704762ef742742eced60a1110d59e",
+      "sha256": "624141304c180fc412c8a3567cd386ce8b0b6508e918b52a89dcf7c0e6650f24",
       "bytes": 1085788,
       "role": "rules"
     },
@@ -90,13 +90,13 @@
       "role": "rules"
     },
     "setup.sh": {
-      "sha256": "7a9f8bb53e62fc211883e742133cd75aefbcb2f5f5323a347400128ff5ddca01",
+      "sha256": "40797cf0e6b421e196df7721382101690991ac99657fccec6cb0a0080301ce96",
       "bytes": 4295,
       "role": "rules"
     },
     ".well-known/agent.json": {
-      "sha256": "5e5a722891f55e084a79b4a198df55b6fcc0b89c966b9049f05c53a9d5e9069c",
-      "bytes": 691,
+      "sha256": "f493ee617b27379456019c06fbca0a14849fcfdfccc1722e55789cfd2eb0d1b0",
+      "bytes": 721,
       "role": "rules"
     },
     ".well-known/agents.md": {
@@ -205,7 +205,7 @@
       "role": "support"
     },
     "tools/make_manifest.py": {
-      "sha256": "5495d6f83c81e33c8f80d3b419a4a97f9f2ffb0d9d0b538c654f59c1ecfac9ce",
+      "sha256": "180af84d4468d153bdad3eecb2457920bd3591caa4daa0492b7fd16bd7167156",
       "bytes": 2748,
       "role": "support"
     },
@@ -255,7 +255,7 @@
       "role": "support"
     },
     "tests/test_consistency.py": {
-      "sha256": "9230ca5b197aea641920ea9224b0fe349c6e2bec47b3c3486884de462e163cca",
+      "sha256": "290ccc5326299dd09c1a1c786aea22b62acc925dfc9ceb825410afc9d9c61f5b",
       "bytes": 6515,
       "role": "support"
     },

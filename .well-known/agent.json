@@ -1,11 +1,16 @@
 {
   "name": "execution-conventions",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Execution conventions and worked session transcripts for tool-using agents.",
   "entrypoint": "INSTALL.md",
   "install": {
     "command": "curl -sSfL https://raw.githubusercontent.com/kishank00172/no-gyaan-agent/main/setup.sh | bash",
-    "produces": ["BOOT.md", "BUNDLE.md", "AGENTS.md", ".agent/packs/"],
+    "produces": [
+      "BOOT.md",
+      "BUNDLE.md",
+      "AGENTS.md",
+      ".agent/packs/"
+    ],
     "read_after_install": "BOOT.md"
   },
   "alternate_entrypoints": {

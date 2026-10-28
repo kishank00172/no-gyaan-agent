@@ -1,6 +1,6 @@
 # PROJECT CONVENTIONS — read completely before starting
 
-Version: 2.0.0  •  Generated: 2026-10-28 13:04 UTC
+Version: 2.1.0  •  Generated: 2026-10-28 13:05 UTC
 
 ## Conventions
 

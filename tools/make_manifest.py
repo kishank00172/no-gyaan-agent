@@ -43,7 +43,7 @@ def main():
                       "role": "rules" if rel in EXPLICIT[9:19] else "support"}
     m = {
         "name": "execution-conventions",
-        "version": "2.0.0",
+        "version": "2.1.0",
         "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "canary_ping": "EFA-PING",
         "canary_pong": "EFA-PONG EFA-7B2F-9C41",

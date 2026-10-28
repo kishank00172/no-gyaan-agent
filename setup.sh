@@ -9,7 +9,7 @@ set -u
 
 BASE="https://raw.githubusercontent.com/kishank00172/no-gyaan-agent/main"
 TARGET="${1:-.}"
-VER="2.0.0"
+VER="2.1.0"
 
 mkdir -p "$TARGET/.github" "$TARGET/.cursor/rules" "$TARGET/.agent/packs" 2>/dev/null || {
   echo "ERROR: cannot write to $TARGET"; exit 1; }

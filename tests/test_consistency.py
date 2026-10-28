@@ -114,7 +114,7 @@ def test_manifest_integrity():
     subprocess.run([sys.executable, str(ROOT / "tools" / "make_manifest.py")],
                    cwd=ROOT, check=True, capture_output=True)
     m = json.loads((ROOT / "manifest.json").read_text())
-    assert m["version"] == "2.0.0"
+    assert m["version"] == "2.1.0"
     for rel, meta in m["files"].items():
         p = ROOT / rel
         if p.exists():
@@ -155,5 +155,5 @@ def test_discovery_files_exist():
               ".well-known/agents.md", "BUNDLE.md"]:
         assert (ROOT / f).is_file(), f"missing {f}"
     j = json.loads((ROOT / ".well-known" / "agent.json").read_text())
-    assert j["version"] == "2.0.0"
+    assert j["version"] == "2.1.0"
     assert "setup.sh" in j["install"]["command"]
