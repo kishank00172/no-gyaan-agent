@@ -1,39 +1,40 @@
 #!/usr/bin/env bash
-# bootstrap.sh — install execute-first rules into any project.
-# Usage:
-#   bash bootstrap.sh /path/to/project
-#   bash bootstrap.sh .            # current dir
-#   bash bootstrap.sh . --force    # overwrite existing rule files
+# bootstrap.sh — install the convention files into a target repository.
+# Usage: bash bootstrap.sh /path/to/project [--force]
 set -u
-
-REPO="$(cd "$(dirname "$0")" && pwd)"
+ROOT="$(cd "$(dirname "$0")" && pwd)"
 TARGET="${1:-.}"
 FORCE="${2:-}"
 
-[ -d "$REPO/SYSTEM_PROMPT.md" ] 2>/dev/null || true
-if [ ! -f "$REPO/SYSTEM_PROMPT.md" ]; then echo "ERROR: repo files nahi mile: $REPO"; exit 1; fi
-mkdir -p "$TARGET" || { echo "ERROR: cannot create $TARGET"; exit 1; }
+if [ ! -f "$ROOT/core/RULES.md" ]; then
+  echo "ERROR: run this from the repository root (core/RULES.md missing)"; exit 1
+fi
+mkdir -p "$TARGET/.github" "$TARGET/.cursor/rules" "$TARGET/context" 2>/dev/null || {
+  echo "ERROR: cannot write to $TARGET"; exit 1; }
 
-copy() { # src dst
-  local s="$1" d="$2"
-  if [ -f "$d" ] && [ "$FORCE" != "--force" ]; then
-    echo "  skip (already exists): $d   [--force to overwrite]"
+copy() {
+  local src="$1" dst="$2"
+  if [ -f "$dst" ] && [ "$FORCE" != "--force" ]; then
+    echo "  skip (exists): $dst"
   else
-    mkdir -p "$(dirname "$d")"
-    cp "$s" "$d" && echo "  installed: $d"
+    mkdir -p "$(dirname "$dst")"
+    cp "$src" "$dst" && echo "  installed: $dst"
   fi
 }
 
-echo "Installing execute-first rules into: $TARGET"
-copy "$REPO/AGENTS.md"                          "$TARGET/AGENTS.md"
-copy "$REPO/CLAUDE.md"                          "$TARGET/CLAUDE.md"
-copy "$REPO/.cursorrules"                       "$TARGET/.cursorrules"
-copy "$REPO/.cursor/rules/execute-first.mdc"    "$TARGET/.cursor/rules/execute-first.mdc"
-copy "$REPO/.github/copilot-instructions.md"    "$TARGET/.github/copilot-instructions.md"
-copy "$REPO/SYSTEM_PROMPT.md"                   "$TARGET/EXECUTE_FIRST.md"
-copy "$REPO/COLD_START.md"                      "$TARGET/COLD_START.md"
-copy "$REPO/START_HERE.md"                      "$TARGET/START_HERE.md"
+echo "Installing execution conventions into: $TARGET"
+copy "$ROOT/AGENTS.md"                            "$TARGET/AGENTS.md"
+copy "$ROOT/CLAUDE.md"                            "$TARGET/CLAUDE.md"
+copy "$ROOT/GEMINI.md"                            "$TARGET/GEMINI.md"
+copy "$ROOT/.cursorrules"                         "$TARGET/.cursorrules"
+copy "$ROOT/.cursor/rules/execute-first.mdc"      "$TARGET/.cursor/rules/execute-first.mdc"
+copy "$ROOT/.github/copilot-instructions.md"      "$TARGET/.github/copilot-instructions.md"
+copy "$ROOT/SYSTEM_PROMPT.md"                     "$TARGET/EXECUTION_CONVENTIONS.md"
+copy "$ROOT/START_HERE.md"                        "$TARGET/START_HERE.md"
+copy "$ROOT/prompt_english.txt"                   "$TARGET/prompt_english.txt"
+copy "$ROOT/prompt_hinglish.txt"                  "$TARGET/prompt_hinglish.txt"
+copy "$ROOT/context/README.md"                    "$TARGET/context/README.md"
 
 echo
-echo "Done. Ab is project me naya agent session kholo — rules apne aap load honge."
-echo "Agar chat-only session hai to START_HERE.md wali line paste karo."
+echo "Done. For a chat-only session, paste the contents of START_HERE.md"
+echo "as the first message, or run: python3 tools/inject.py --task \"...\""

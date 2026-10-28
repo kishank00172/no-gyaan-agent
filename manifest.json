@@ -1,0 +1,358 @@
+{
+  "name": "execution-conventions",
+  "version": "2.0.0",
+  "generated_utc": "2026-10-28T12:47:18Z",
+  "canary_ping": "EFA-PING",
+  "canary_pong": "EFA-PONG EFA-7B2F-9C41",
+  "rule_files": [
+    "core/RULES.md",
+    "SYSTEM_PROMPT.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "GEMINI.md",
+    ".cursorrules",
+    ".cursor/rules/execute-first.mdc",
+    ".github/copilot-instructions.md",
+    "prompt_english.txt",
+    "prompt_hinglish.txt"
+  ],
+  "core_concepts": [
+    "warm-up",
+    "install",
+    "verify",
+    "three-routes",
+    "fix-input",
+    "one-line-continue",
+    "deliverable",
+    "short-close",
+    "domain-agnostic",
+    "canary"
+  ],
+  "files": {
+    "README.md": {
+      "sha256": "1aaddc0ab577621f7e676744d26595373bc1872150fa7f1c8ad97813f30e9efa",
+      "bytes": 5929,
+      "role": "support"
+    },
+    "CHANGELOG.md": {
+      "sha256": "7a27b72244decc14910dd4a9bfc022894d0a1d651032c39c36579d8d58a9df7d",
+      "bytes": 3109,
+      "role": "support"
+    },
+    "CONTRIBUTING.md": {
+      "sha256": "d9fa5e4d57d763ee4e3fa876b5613d31fa9cf82b950273dafc90c2ebbdfa066f",
+      "bytes": 2358,
+      "role": "support"
+    },
+    "LICENSE": {
+      "sha256": "e7f7aa9bb41eea78d12dc507a4168332f11c5fb7a632bc4623562f2d757cc63f",
+      "bytes": 1069,
+      "role": "support"
+    },
+    "VERSION": {
+      "sha256": "c28fcca53637bc88e124af1725df13cb98c69dedefd62fb3cdbe1cdb6b760624",
+      "bytes": 6,
+      "role": "support"
+    },
+    "START_HERE.md": {
+      "sha256": "5de59d3c5b4dc7c50de38ed050b4c4d155eab30a41c732fc6207eeb3b85e721e",
+      "bytes": 1712,
+      "role": "support"
+    },
+    "COLD_START.md": {
+      "sha256": "60d5bd5d9e096624e48404b55ddd549741e0bf96b5dad1ffdcc6567c12646c22",
+      "bytes": 3317,
+      "role": "support"
+    },
+    "TROUBLESHOOT.md": {
+      "sha256": "01e5f3d77993a929cd3baa2c625cabe09a84ff43e6f96620c3b64fb4f53a715b",
+      "bytes": 3175,
+      "role": "support"
+    },
+    "RESEARCH.md": {
+      "sha256": "8538efd5a849be65bfb3b35784cbd6783530a03500aa05a61d1c9650711f02ca",
+      "bytes": 17665,
+      "role": "support"
+    },
+    "core/RULES.md": {
+      "sha256": "7d215105ab11c34986e3df39ab6b01ab2bc5e5054c89471eaa220273a9c66aa5",
+      "bytes": 1601,
+      "role": "rules"
+    },
+    "SYSTEM_PROMPT.md": {
+      "sha256": "25bfc2f7c5dd58302721de12c721e83b85d34ad09225cf21547b792d1fe26a6d",
+      "bytes": 1681,
+      "role": "rules"
+    },
+    "AGENTS.md": {
+      "sha256": "b2169672700b0df94fe97d63451c8f7d9b8d197c602e29220c8271261200ca51",
+      "bytes": 1736,
+      "role": "rules"
+    },
+    "CLAUDE.md": {
+      "sha256": "004bb312d3f15ac10de7c3b59a7482f369a2e7823e7e0fb471baa18c67eb5680",
+      "bytes": 1632,
+      "role": "rules"
+    },
+    "GEMINI.md": {
+      "sha256": "379a091175b72525577e348c7bbc2c1e4ce917549600d4f336f89ee6c6e10702",
+      "bytes": 1697,
+      "role": "rules"
+    },
+    ".cursorrules": {
+      "sha256": "342644fdf0fff62de4147a531fdc0cb28ee49136ae581fdd8d41c287d506fada",
+      "bytes": 1589,
+      "role": "rules"
+    },
+    ".cursor/rules/execute-first.mdc": {
+      "sha256": "0c79ad6abe2d9830de0c8b741febb7495b48fecfbde2ded70db1a3cda0296850",
+      "bytes": 1664,
+      "role": "rules"
+    },
+    ".github/copilot-instructions.md": {
+      "sha256": "6651e0b63f1d6dbb09cfcf2511078e95ff7b90393b0699201d0066a1940f37f7",
+      "bytes": 1633,
+      "role": "rules"
+    },
+    "prompt_english.txt": {
+      "sha256": "5a63423361e9617fbf4aa2781200b67eedcb6e98cc1c02c37534bbefa76fe71e",
+      "bytes": 1584,
+      "role": "rules"
+    },
+    "prompt_hinglish.txt": {
+      "sha256": "e4811647cf737146b1df90f69bef17a7b0999ed21297e1b9bada1183f9a33c33",
+      "bytes": 1520,
+      "role": "rules"
+    },
+    "bootstrap.sh": {
+      "sha256": "1c525d1e97a50176e1eb0070ee52777698cb5d7b683f3d13137f7588d1a40da7",
+      "bytes": 1781,
+      "role": "support"
+    },
+    "check.sh": {
+      "sha256": "afa6aabd756cf0235734e51694163eca8df01407e5e63f2648ff6804e11e93be",
+      "bytes": 1869,
+      "role": "support"
+    },
+    ".github/workflows/ci.yml": {
+      "sha256": "2b871fb6b37f489efc7072b2ff953fa27168f28107785e256bd59b9c37637603",
+      "bytes": 1645,
+      "role": "support"
+    },
+    "context/index.json": {
+      "sha256": "00dcb31e5560016cb1167e70b0df183357c62671c8f83c8497bc8f2539e79e7d",
+      "bytes": 1524,
+      "role": "support"
+    },
+    "context/README.md": {
+      "sha256": "70781d0c9c1b18a4bae2c763874149996d595a0b70f27e3be7d486432ae5e27c",
+      "bytes": 1938,
+      "role": "support"
+    },
+    "tools/build_rules.py": {
+      "sha256": "6842ef0093f1d37378d42084c7efc6d7cc643984820e1953de08011a20b7d47c",
+      "bytes": 4757,
+      "role": "support"
+    },
+    "tools/make_corpus.py": {
+      "sha256": "dd7cc34732943c67dadf675ef3c55780e0c7a0b561cc10dcfb041e74d685b61a",
+      "bytes": 23209,
+      "role": "support"
+    },
+    "tools/inject.py": {
+      "sha256": "b44dd618634c357d0ee6ee4f80bd1bd28e9d4802bded7e7ebf342b81b302d9ad",
+      "bytes": 5012,
+      "role": "support"
+    },
+    "tools/trigger_audit.py": {
+      "sha256": "ef8b6ba35776992e6f5d425881e97dc3294774ca351e41073901239b8585c6b3",
+      "bytes": 3939,
+      "role": "support"
+    },
+    "tools/make_manifest.py": {
+      "sha256": "b68c241abcf3c9aedc2675b26614226f8131aee4b94bdf4d022061111091eeb5",
+      "bytes": 2610,
+      "role": "support"
+    },
+    "tools/verify_manifest.py": {
+      "sha256": "a8a6ef99304179dbb055a7949b5fc99ce359b1ab23756b790480646de83400bb",
+      "bytes": 2288,
+      "role": "support"
+    },
+    "tools/yt_audio.sh": {
+      "sha256": "79c83da0abfb64e1ddb5859b21117d192cb40b4268b8721628622d54a7a82b78",
+      "bytes": 3943,
+      "role": "support"
+    },
+    "tools/find_broken_id.py": {
+      "sha256": "9ae9531e6b76d6df0687f14de7944fcc9c237111c6b7f763fb8e520872344b6f",
+      "bytes": 5342,
+      "role": "support"
+    },
+    "verify/canary.txt": {
+      "sha256": "7e3995380f6c3fe74880b85e4f3fc673b2d99fa16b99c729895a579ee05d43dc",
+      "bytes": 1074,
+      "role": "support"
+    },
+    "verify/rubric.md": {
+      "sha256": "fda575be34a7da5dafe338b1dfe060d0bcd9da0b4f47c402cb6482d3c12ef4e4",
+      "bytes": 1836,
+      "role": "support"
+    },
+    "verify/score.py": {
+      "sha256": "cdad5948ab73966e5d37aa371d0b35be892594789f323f29b5fceda6c86e7567",
+      "bytes": 3150,
+      "role": "support"
+    },
+    "verify/results.template.csv": {
+      "sha256": "f3689623110656d593b1026263ea6d54a9243514a2c7f10ad0a032f2cb3a6664",
+      "bytes": 564,
+      "role": "support"
+    },
+    "verify/check_artifacts.sh": {
+      "sha256": "6541d447068a263de9afb946a10c9b10e915138741937aed6496437b627e722a",
+      "bytes": 2798,
+      "role": "support"
+    },
+    "verify/CASE_STUDY.md": {
+      "sha256": "cd7ccec4a627c6d3b3639cd7af33f14824685e45a4275653310743528fb22f14",
+      "bytes": 3667,
+      "role": "support"
+    },
+    "tests/test_consistency.py": {
+      "sha256": "58f8d0964694c9029d7ee9320976c5c1ca1a9501166094ef82e90491a8b02462",
+      "bytes": 4826,
+      "role": "support"
+    },
+    "context/packs/session_pack_01.md": {
+      "sha256": "d764697a5fbcfd78d3503bb86b79e419c8290dbbdc34122c1eecc5b184c119d3",
+      "bytes": 91319,
+      "role": "support"
+    },
+    "context/packs/session_pack_02.md": {
+      "sha256": "e666db0398de96bd1a75511da0959663eac1672704f50c37dea4548fe67a7188",
+      "bytes": 91312,
+      "role": "support"
+    },
+    "context/packs/session_pack_03.md": {
+      "sha256": "5a8645fabd816cd51a84f2e39e011ed9b99411f684e6ccb2831f560d9dd23fec",
+      "bytes": 90417,
+      "role": "support"
+    },
+    "context/packs/session_pack_04.md": {
+      "sha256": "e43254ac21503c205cb1d5b3b9256f65e303e44e613a4dfb95175bc299d4af35",
+      "bytes": 89663,
+      "role": "support"
+    },
+    "context/packs/session_pack_05.md": {
+      "sha256": "a41620ab80f9a34dd5a490f0796bc058a5aec842efca5594ec9c2640564ef89d",
+      "bytes": 91022,
+      "role": "support"
+    },
+    "context/packs/session_pack_06.md": {
+      "sha256": "7a06b81b549c05fc5c7bc774867138230bcda5b7e05c334bbff88b6e3541fecf",
+      "bytes": 93018,
+      "role": "support"
+    },
+    "context/packs/session_pack_07.md": {
+      "sha256": "809932d646c2f180c01985a7d46680b9d3fd1255a8f3029920a04fe9fcee136c",
+      "bytes": 90363,
+      "role": "support"
+    },
+    "context/packs/session_pack_08.md": {
+      "sha256": "f5dc794e979d821816f85561d00c2f183fb5d999da84fe56ab8a69941b01fc24",
+      "bytes": 89580,
+      "role": "support"
+    },
+    "context/packs/session_pack_09.md": {
+      "sha256": "dc40a5ed7dda94e499c11b2edc2af1d107cf4b692ef8adc22ae0fad5df9420c9",
+      "bytes": 88587,
+      "role": "support"
+    },
+    "context/packs/session_pack_10.md": {
+      "sha256": "3f5532eb6ef3c2a8a49bcb39c40d7b38d7dbe1a866b6967199418c8f4f41e95b",
+      "bytes": 89460,
+      "role": "support"
+    },
+    "context/packs/session_pack_11.md": {
+      "sha256": "8d1175b846997efad98aad7ad82a98d2f86e7ae0a84209ec6365dbd7e6a52256",
+      "bytes": 89856,
+      "role": "support"
+    },
+    "context/packs/session_pack_12.md": {
+      "sha256": "d67121494903493c84e25dc4beaabae5c5f6fc85e24ec7557a59173a9e077c26",
+      "bytes": 88531,
+      "role": "support"
+    },
+    "docs/configuration.md": {
+      "sha256": "81cfd175fd3c482f54c6b9e64dd77c26e72573e2cc21023fd3a4e316627091d9",
+      "bytes": 1381,
+      "role": "support"
+    },
+    "docs/getting-started.md": {
+      "sha256": "467c7f30c8772be2c02afc902fc99cf8902ad452e8bb35df68e9f004105061a2",
+      "bytes": 1231,
+      "role": "support"
+    },
+    "docs/how-it-works.md": {
+      "sha256": "dabc49b17e9917f4ced8d7e69859b04267ab6d827d53820d0c6a0cb1de145834",
+      "bytes": 2603,
+      "role": "support"
+    },
+    "docs/troubleshooting.md": {
+      "sha256": "e6b47119103be0724e5acd982f61632a7d1c95064e88f59a5bb74f4d1b8d1adf",
+      "bytes": 1951,
+      "role": "support"
+    },
+    "research/00_INDEX.md": {
+      "sha256": "d6a1fa10e687536f0632b6a0efeeaa0c5c07aa3e3a6f9a57e86af424a5f92abd",
+      "bytes": 8468,
+      "role": "support"
+    },
+    "research/01_ATTACKS.md": {
+      "sha256": "a4cdcce5f10e2fbd503d55d24e264909599dd0fcafe03fd53149b528501d8e9f",
+      "bytes": 21694,
+      "role": "support"
+    },
+    "research/02_MECHANISMS.md": {
+      "sha256": "0b30cbfe76f7e2f4c4a302f01e84588b1965084693b5dfe964a90d40e66e2f7d",
+      "bytes": 17642,
+      "role": "support"
+    },
+    "research/03_DEFENSES_MODEL.md": {
+      "sha256": "0b5f6e52f5c6c54b6b7eb02a6d1c6f3184dfa92a8af9367f0cf0af12b7f0763f",
+      "bytes": 13399,
+      "role": "support"
+    },
+    "research/04_DEFENSES_RUNTIME.md": {
+      "sha256": "413eefd6a9d4f6e607d1d7a8fe3748d823bdd7c75dc843f460fc378cb949387f",
+      "bytes": 14062,
+      "role": "support"
+    },
+    "research/05_DEFENSES_ARCHITECTURE.md": {
+      "sha256": "9417a17607f0bfcd5253dea6c70e3a42036bcb00a37242e44c48cbdbec162dc8",
+      "bytes": 15897,
+      "role": "support"
+    },
+    "research/06_EVALUATION.md": {
+      "sha256": "b5a55b72291b3ca712a8102e543a5a10d2222abb8bd6aead9945698216a751af",
+      "bytes": 12234,
+      "role": "support"
+    },
+    "research/07_PROTECT_YOUR_MODEL.md": {
+      "sha256": "557454cd61b4fcbed6c30c0fe4bd58fb7bb8cb27c9f92673a776aaef42cfb919",
+      "bytes": 13266,
+      "role": "support"
+    },
+    "research/08_YOUR_GOAL.md": {
+      "sha256": "64d04a1758ebdeee66f6a8eca6ed63004bfb9afd081fb2445875d9d03a60344f",
+      "bytes": 10909,
+      "role": "support"
+    },
+    "research/SOURCES.md": {
+      "sha256": "fae160b9b9b35a1cdb033c79214d99464cb4fec5aac2444936f98f5492090c4b",
+      "bytes": 22373,
+      "role": "support"
+    }
+  }
+}

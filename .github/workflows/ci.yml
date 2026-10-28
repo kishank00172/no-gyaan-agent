@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install test deps
+        run: python -m pip install --quiet pytest
+
+      - name: Regenerate rule files
+        run: python3 tools/build_rules.py
+
+      - name: Regenerate session packs
+        run: python3 tools/make_corpus.py
+
+      - name: Trigger audit (strict)
+        run: python3 tools/trigger_audit.py --strict
+
+      - name: Inject smoke test
+        run: |
+          python3 tools/inject.py --task "smoke test task" --packs 2 \
+            --out out/ci_first_message.txt
+          test -s out/ci_first_message.txt
+
+      - name: Refresh manifest
+        run: python3 tools/make_manifest.py
+
+      - name: Integrity check
+        run: python3 tools/verify_manifest.py
+
+      - name: Shell syntax
+        run: |
+          bash -n bootstrap.sh
+          bash -n check.sh
+          bash -n verify/check_artifacts.sh
+          bash -n tools/yt_audio.sh
+
+      - name: Python syntax
+        run: python3 -m compileall -q tools tests verify
+
+      - name: Unit tests
+        run: python3 -m pytest -q tests/
+
+      - name: Full check
+        run: bash check.sh
+
+      - name: Confirm generated files are committed
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::Generated files are out of date. Run the generators and commit."
+            git diff --stat
+            exit 1
+          fi

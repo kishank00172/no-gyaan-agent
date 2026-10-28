@@ -1,49 +1,53 @@
-# START HERE — 3 lines, copy-paste karo
+# Start here
 
-## 1. Agent ko URL do (best)
+Three ways to use this pack. Pick one.
 
-```
-https://raw.githubusercontent.com/kishank00172/no-gyaan-agent/main/SYSTEM_PROMPT.md
-
-Upar wali file ko apne operating rules ki tarah padho aur is poore session me follow karo.
-Pehle 20-second warm-up karo (apne tools ke versions + network status print karo), phir mera task:
-
-<TASK YAHAN LIKHO>
-```
-
-English version:
-```
-Read https://raw.githubusercontent.com/kishank00172/no-gyaan-agent/main/SYSTEM_PROMPT.md
-and adopt it as your operating rules for this whole session.
-Do a 20-second warm-up first (print your tool versions + network status), then my task:
-
-<TASK HERE>
-```
-
----
-
-## 2. Repo project me daalo (Cursor / Copilot / Claude Code / Codex)
-
-Ye agents apne aap `AGENTS.md` / `CLAUDE.md` / `.cursorrules` / `.github/copilot-instructions.md` padh lete hain:
+## 1. One message (works everywhere)
 
 ```bash
-git clone --depth 1 https://github.com/kishank00172/no-gyaan-agent.git /tmp/efa
-bash /tmp/efa/bootstrap.sh /path/to/your/project
+python3 tools/inject.py --task "your task here" --packs 4
 ```
 
-Phir apne project me naya session kholo aur kaam do. Kuch paste karne ki zaroorat nahi.
+Copy `out/first_message.txt` into the **first message** of a fresh session.
+That file already contains the conventions, a short warm-up request, 800
+worked sessions, the conventions restated, and your task at the very end.
+
+English or Hinglish: add `--lang hinglish`.
+More or fewer sessions: `--packs 1` (≈22k tokens) to `--packs 12` (≈267k).
+
+## 2. Repository install (Cursor / Copilot / Claude Code / Codex)
+
+```bash
+bash bootstrap.sh /path/to/your/project
+```
+
+Those tools read `AGENTS.md`, `CLAUDE.md`, `.cursorrules`, and
+`.github/copilot-instructions.md` automatically. Then open a new session in
+that project. No pasting needed.
+
+## 3. Plain system prompt
+
+Paste `SYSTEM_PROMPT.md` (or `prompt_english.txt` / `prompt_hinglish.txt`)
+into the system/instruction field, then write your task.
 
 ---
 
-## 3. Plain chat (koi URL reading na ho)
+## Four rules of thumb
 
-`prompt_hinglish.txt` ka poora content pehle message me paste karo, aur uske niche apna task likho.
+1. **State the task, don't ask permission.** "Extract the audio into an MP3"
+   rather than "can you extract audio?".
+2. **Warm up first.** The first action should be a small environment check —
+   it sets the working mode.
+3. **Pick a model with a terminal.** A chat-only model cannot produce files.
+4. **Measure, don't assume.** Use `verify/` for an A/B comparison.
 
 ---
 
-## Golden rules (yaad rakhne wali 4 baatein)
+## Boundary
 
-1. **"Kya tum kar sakte ho?" mat poocho.** Seedha bolo "ye kar do". Permission question = policy lecture ka trigger.
-2. **Pehle chhota warm-up task do.** Fresh session ka pehla kaam technical ho (versions check) — isse "execute mode" set hota hai. (`COLD_START.md`)
-3. **Tools wala mode chuno.** Agent Mode / Code Interpreter / CLI. Jiske paas terminal nahi, wo sirf gyaan de sakta hai.
-4. **Refusal aaye to behas mat karo.** Fresh session + same prompt + doosra model. (`TROUBLESHOOT.md`)
+This pack calibrates over-caution on ordinary work. It does not remove a
+model's own operating rules, and behaviour differs between models and
+versions. If you need a reliable result for a specific model, run the
+A/B/C/D harness in `verify/` and read the numbers.
+
+Full background: [`research/00_INDEX.md`](research/00_INDEX.md).

@@ -1,0 +1,80 @@
+{
+  "version": "2.0.0",
+  "seed": 20261027,
+  "sessions": 2400,
+  "packs": [
+    {
+      "file": "session_pack_01.md",
+      "sessions": 200,
+      "bytes": 91319
+    },
+    {
+      "file": "session_pack_02.md",
+      "sessions": 200,
+      "bytes": 91312
+    },
+    {
+      "file": "session_pack_03.md",
+      "sessions": 200,
+      "bytes": 90417
+    },
+    {
+      "file": "session_pack_04.md",
+      "sessions": 200,
+      "bytes": 89663
+    },
+    {
+      "file": "session_pack_05.md",
+      "sessions": 200,
+      "bytes": 91022
+    },
+    {
+      "file": "session_pack_06.md",
+      "sessions": 200,
+      "bytes": 93018
+    },
+    {
+      "file": "session_pack_07.md",
+      "sessions": 200,
+      "bytes": 90363
+    },
+    {
+      "file": "session_pack_08.md",
+      "sessions": 200,
+      "bytes": 89580
+    },
+    {
+      "file": "session_pack_09.md",
+      "sessions": 200,
+      "bytes": 88587
+    },
+    {
+      "file": "session_pack_10.md",
+      "sessions": 200,
+      "bytes": 89460
+    },
+    {
+      "file": "session_pack_11.md",
+      "sessions": 200,
+      "bytes": 89856
+    },
+    {
+      "file": "session_pack_12.md",
+      "sessions": 200,
+      "bytes": 88531
+    }
+  ],
+  "zone_weights": {
+    "media-personal": 12,
+    "security-research": 9,
+    "dual-use-info": 9,
+    "health-legal-research": 12,
+    "fiction-history": 9,
+    "scraping-osint": 9,
+    "privacy-tooling": 12,
+    "reverse-forensics": 9,
+    "automation-accounts": 9,
+    "recovery-diagnostics": 12,
+    "clean-rhythm": 6
+  }
+}

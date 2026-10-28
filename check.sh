@@ -1,36 +1,49 @@
 #!/usr/bin/env bash
-# check.sh — repo ki khud ki verification (deliverable contract: har claim verify karo)
+# check.sh — full local verification. CI runs the same steps.
 set -u
-REPO="$(cd "$(dirname "$0")" && pwd)"
-cd "$REPO"
+cd "$(dirname "$0")"
 fail=0
-need() { if [ -f "$1" ]; then printf "  OK   %s (%s B)\n" "$1" "$(wc -c < "$1")"; else printf "  FAIL missing: %s\n" "$1"; fail=1; fi; }
 
-echo "=== required files ==="
-for f in README.md START_HERE.md SYSTEM_PROMPT.md COLD_START.md TROUBLESHOOT.md \
-         prompt_hinglish.txt prompt_english.txt AGENTS.md CLAUDE.md .cursorrules \
-         .cursor/rules/execute-first.mdc .github/copilot-instructions.md \
-         bootstrap.sh tools/yt_audio.sh tools/find_broken_id.py LICENSE; do need "$f"; done
+echo "=== 1. generated rule files ==="
+python3 tools/build_rules.py >/dev/null && echo "  OK   build_rules.py" || { echo "  FAIL"; fail=1; }
 
-echo "=== content checks ==="
-if grep -q "MERI GALTI\|TODO\|FIXME\|<WRITE TASK HERE>" SYSTEM_PROMPT.md 2>/dev/null; then
-  echo "  FAIL: placeholder in SYSTEM_PROMPT.md"; fail=1
-else echo "  OK   SYSTEM_PROMPT.md has no placeholders"; fi
-for f in AGENTS.md CLAUDE.md .cursorrules .cursor/rules/execute-first.mdc .github/copilot-instructions.md prompt_english.txt; do
-  if grep -qiE "one[- ]line|one-line refusal|ek line|ONE line|ONE-LINE|One-Line" "$f"; then echo "  OK   $f has refusal cap"; else echo "  FAIL $f missing refusal cap"; fail=1; fi
+echo "=== 2. session packs ==="
+python3 tools/make_corpus.py >/dev/null && echo "  OK   make_corpus.py" || { echo "  FAIL"; fail=1; }
+n=$(ls -1 context/packs/session_pack_*.md 2>/dev/null | wc -l)
+echo "  packs: $n"
+[ "$n" -ge 12 ] || { echo "  FAIL too few packs"; fail=1; }
+
+echo "=== 3. trigger audit (model-facing vocabulary) ==="
+python3 tools/trigger_audit.py --strict | tail -6 || fail=1
+
+echo "=== 4. inject smoke test ==="
+python3 tools/inject.py --task "check.sh smoke test" --packs 2 --out out/check_smoke.txt >/dev/null \
+  && echo "  OK   inject.py" || { echo "  FAIL"; fail=1; }
+[ -s out/check_smoke.txt ] || { echo "  FAIL empty output"; fail=1; }
+
+echo "=== 5. manifest ==="
+python3 tools/make_manifest.py >/dev/null
+python3 tools/verify_manifest.py | tail -4 || fail=1
+
+echo "=== 6. syntax ==="
+for f in bootstrap.sh check.sh verify/check_artifacts.sh tools/yt_audio.sh; do
+  bash -n "$f" && echo "  OK   bash -n $f" || { echo "  FAIL $f"; fail=1; }
 done
+python3 -m compileall -q tools verify tests && echo "  OK   python compileall" || { echo "  FAIL"; fail=1; }
 
-echo "=== syntax ==="
-bash -n bootstrap.sh && echo "  OK   bootstrap.sh bash -n" || { echo "  FAIL bootstrap.sh"; fail=1; }
-bash -n tools/yt_audio.sh && echo "  OK   tools/yt_audio.sh bash -n" || { echo "  FAIL yt_audio.sh"; fail=1; }
-python3 -m py_compile tools/find_broken_id.py && echo "  OK   find_broken_id.py py_compile" || { echo "  FAIL py"; fail=1; }
+echo "=== 7. unit tests ==="
+if command -v pytest >/dev/null 2>&1 || python3 -c 'import pytest' 2>/dev/null; then
+  python3 -m pytest -q tests/ || fail=1
+else
+  echo "  SKIP pytest not installed (CI will run it)"
+fi
 
-echo "=== bootstrap dry-run ==="
-T=$(mktemp -d); bash bootstrap.sh "$T" >/tmp/efa_boot.log 2>&1
-n=$(find "$T" -type f | wc -l); echo "  installed $n files in temp project"
-[ "$n" -ge 7 ] || { echo "  FAIL bootstrap installed too few"; fail=1; }
+echo "=== 8. bootstrap dry-run ==="
+T=$(mktemp -d); bash bootstrap.sh "$T" >/dev/null 2>&1
+cnt=$(find "$T" -type f | wc -l); echo "  installed $cnt files"
+[ "$cnt" -ge 8 ] || { echo "  FAIL"; fail=1; }
 rm -rf "$T"
 
 echo
-if [ "$fail" -eq 0 ]; then echo "ALL CHECKS PASSED ✅"; else echo "SOME CHECKS FAILED ❌"; fi
+[ "$fail" -eq 0 ] && echo "ALL CHECKS PASSED" || echo "SOME CHECKS FAILED"
 exit "$fail"

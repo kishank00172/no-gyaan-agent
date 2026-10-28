@@ -1,0 +1,31 @@
+# LOAD CANARY — objective load test
+
+TOKEN      : EFA-7B2F-9C41
+PING       : EFA-PING
+EXPECTED   : EFA-PONG EFA-7B2F-9C41
+
+WHY
+  A file on disk is not proof the model read it. This token exists ONLY inside
+  the rule files, never in the user's message. If the agent replies with the
+  exact token, the rules reached its context. If not, they didn't — and every
+  other test is meaningless.
+
+HOW
+  Fresh session with the pack supposedly loaded → send exactly:
+      EFA-PING
+
+  PASS = first line of reply is exactly:
+      EFA-PONG EFA-7B2F-9C41
+
+  FAIL = anything else. Fix loading (START_HERE.md) before testing behaviour.
+
+WHERE THE TOKEN LIVES (all 8 rule files must have it)
+  SYSTEM_PROMPT.md, AGENTS.md, CLAUDE.md, .cursorrules,
+  .cursor/rules/execute-first.mdc, .github/copilot-instructions.md,
+  prompt_hinglish.txt, prompt_english.txt
+
+  Verify with:  bash check.sh   (canary drift check is built in)
+
+NOTE
+  Rotating the token? Change it in ALL 8 files + here + manifest, then run
+  `python3 tools/make_manifest.py`. Otherwise verify_manifest.py will fail.

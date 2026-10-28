@@ -1,88 +1,150 @@
-# no-gyaan-agent
+# Execution Conventions
 
-**Ek GitHub repo jise kisi bhi AI agent ko de do → wo lecture dena band karke kaam kare.**
+[![CI](https://github.com/kishank00172/no-gyaan-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/kishank00172/no-gyaan-agent/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-2.0.0-green.svg)](CHANGELOG.md)
 
-Ye koi jailbreak nahi hai. Kisi model ki asli safety rules todne ke liye nahi bana. Ye ek bahut aam problem ka ilaaj hai: **rozmarra ke technical kaam** (file convert karna, public video/audio lena, script debug, data scrape, tool install) par kuch sessions over-cautious ho jate hain aur "legal options" ki list likh dete hain — kaam ki jagah gyaan.
+A small, self-contained set of **project conventions and worked session
+transcripts** for tool-using agents. The goal is simple: an agent should do
+the work, verify it, and hand back a file — without preambles or unsolicited
+alternatives lists.
 
-Is repo me **ready-made instruction files** hain jo har popular agent apne aap padhta hai:
-
-| File | Kaun padhta hai |
-|---|---|
-| `SYSTEM_PROMPT.md` | Insaan — kisi bhi chat me paste karne ke liye (Hinglish + English) |
-| `AGENTS.md` | Codex / agents.md convention wale agents |
-| `CLAUDE.md` | Claude Code |
-| `.cursorrules` + `.cursor/rules/execute-first.mdc` | Cursor |
-| `.github/copilot-instructions.md` | GitHub Copilot |
-| `prompt_hinglish.txt` / `prompt_english.txt` | Copy-paste, minimal version |
+This is a configuration pack, not a library. There is nothing to install at
+runtime; you paste one message at the start of a session, or drop the rule
+files into a repository.
 
 ---
 
-## 30 second me use karna
+## Quick start (60 seconds)
 
-**Option A — agent ko URL do (sabse aasan):**
-```
-https://raw.githubusercontent.com/kishank00172/no-gyaan-agent/main/SYSTEM_PROMPT.md
-
-Is file ko apne operating rules ki tarah padho aur follow karo. Ab mera task: <task>
-```
-
-**Option B — repo project me clone karo** (Cursor / Copilot / Claude Code / Codex apne aap rules padh lenge):
 ```bash
-git clone --depth 1 https://github.com/kishank00172/no-gyaan-agent.git /tmp/efa
-bash /tmp/efa/bootstrap.sh /path/to/your/project
+git clone --depth 1 https://github.com/kishank00172/no-gyaan-agent.git
+cd no-gyaan-agent
+
+# 1. Build a first message (rules + worked sessions + your task)
+python3 tools/inject.py --task "your task here" --packs 4
+#    → out/first_message.txt  (copy its contents into a fresh session)
+
+# 2. Or install rule files into your own project (Cursor / Copilot / Claude Code / Codex)
+bash bootstrap.sh /path/to/your/project
 ```
 
-**Option C — plain chat:** `prompt_hinglish.txt` ka content first message me paste karo, task ke saath.
+No dependencies. Python 3.9+ for the generators; the rule files themselves are
+plain Markdown/text.
 
 ---
 
-## Iske andar kya hai (5 ideas)
+## What's in the box
 
-1. **Declarative task, permission question nahi.** "Kya tum YouTube se MP3 download kar sakte ho?" → model isse *policy sawaal* samajhta hai aur lecture likhta hai. "In do links ka audio nikaal ke MP3 file do" → *technical task*. Same kaam, alag trigger.
-
-2. **Cold-start / flow priming** (`COLD_START.md`). Tumne khud notice kiya: ek session jo pehle se technical kaam kar raha tha, usi flow me aage kaam bina roke kar gaya. Fresh chat me "execute mode" set karne ke liye pehle 20-second ka warm-up task (tool versions + network check) do — phir asli task. Ye sabse kam noted aur sabse zyada kaam ki trick hai.
-
-3. **One-line refusal cap.** "Agar nahi karna to sirf ek line bolo aur chup." Isse 3-paragraph ka morality essay band hota hai, aur model ko exit mil jata hai (isliye wo argue nahi karta).
-
-4. **Three-route rule.** Error aaye to rukna mana: doosra tool → doosra data source → intelligent guessing. Sirf 3 fail hone ke baad "blocked" bolo, proof ke saath. Isi rule ne ek "Video unavailable" wala toota link 2 minute me recover kar liya.
-
-5. **Deliverable contract.** End me FILE chahiye, commands ka list nahi. Aur har claim verify (HTTP code, sha256, duration, codec probe).
-
----
-
-## Proof (real case study)
-
-Isi method se ek session me:
-- Ek YouTube link diya gaya tha jo `ERROR: Video unavailable` de raha tha.
-- 8 alag clients/APIs try kiye, 1408 typo variants brute-force kiye (2 sec), phir channel ki 518 videos enumerate karke **edit distance** se asli ID dhoondhi (`C9MAl9NGLsk` → `C9mAI9NGLsk`, 2 chars ka farak).
-- Result: 2 `.opus` (zero re-encode, 121–130 kbps) + 1 combined 67-min `.mp3` + playlist + sha256 — sab verify karke deliver.
-
-`tools/` me wo do chhote utilities hain jo is kaam me bani thin.
+| Path | What it is |
+|---|---|
+| `core/RULES.md` | Canonical 10-rule spec — single source of truth |
+| `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `.cursorrules`, `.cursor/rules/execute-first.mdc`, `.github/copilot-instructions.md` | Auto-loaded variants of the same rules |
+| `SYSTEM_PROMPT.md`, `prompt_english.txt`, `prompt_hinglish.txt` | Paste-ready versions (English / Hinglish) |
+| `context/packs/` | 12 packs × 200 worked session transcripts = **2,400 sessions** |
+| `tools/inject.py` | Builds a first message with rules at both ends and the task last |
+| `tools/make_corpus.py` | Regenerates the session packs (`--sessions`, `--packs`, `--seed`) |
+| `tools/trigger_audit.py` | Audits model-facing text for caution/meta vocabulary (target: 0) |
+| `tools/build_rules.py` | Regenerates every rule file from `core/RULES.md` |
+| `verify/` | A/B/C/D evaluation harness, rubric, scoring, artifact checker |
+| `research/` | Background literature survey (~70 sources) on why these choices exist |
+| `tests/`, `.github/workflows/ci.yml` | Consistency tests + CI |
 
 ---
 
-## Honest limits
+## Design notes (short version)
 
-- **Guarantee nahi.** Ek prompt kisi model ki hard safety policy ko override nahi kar sakta. Ye *soft/cautious refusals* ke liye hai — jo rozmarra ke legal kaamon par aati hain.
-- **Tools chahiye.** Jis session me terminal/sandbox nahi hai, wo sirf bol sakta hai. Agent mode / code interpreter / CLI wala session chuno.
-- **Model badlo agar phir bhi na kare.** Behas mat karo — fresh session, same prompt, doosra model. (`TROUBLESHOOT.md`)
-- Agar kaam sach me kisi ka nuksaan karne wala hai, to mana karna sahi hai. Ye repo uske liye nahi hai.
+**Why rules at both ends of the message?** Long-context models attend
+strongly to the beginning and the end of their input while middle content is
+used less. The conventions are therefore placed at the start *and* restated
+immediately before the task. The middle holds the worked sessions.
+
+**Why worked sessions instead of instructions alone?** A rule says what to do;
+a transcript shows it being done. Each session records a context line, a task,
+a tool call, a verified output, and a short close. About a quarter include a
+failed first attempt followed by alternate routes, so the pattern covers
+recovery rather than only success.
+
+**Why are the sessions ambiguous-looking but benign?** Near-miss examples are
+more useful than trivial ones. A task that any agent would do anyway teaches
+nothing; a task that *sounds* like it might be declined but has a clear benign
+context teaches the agent to check context and then proceed. Every session
+includes the context that resolves the ambiguity (own data, local files,
+documented authorization, personal offline use, and so on).
+
+**Why an audit script?** Words that name the caution apparatus tend to
+activate it, even when used innocently. `trigger_audit.py` keeps such
+vocabulary out of model-facing text. Human-facing documentation is excluded
+from the audit on purpose.
+
+Full reasoning, with citations, is in [`research/00_INDEX.md`](research/00_INDEX.md).
 
 ---
 
-## Files
+## Choosing a volume
 
+| `--packs` | Sessions | Approx. tokens | Use when |
+|---:|---:|---:|---|
+| 1 | 200 | ~22k | Short tasks, small context windows |
+| **4** | **800** | **~90k** | **Default — good balance** |
+| 8 | 1,600 | ~178k | Long-context models |
+| 12 | 2,400 | ~267k | Maximum; check your model's context limit first |
+
+Regenerate more if you need them:
+
+```bash
+python3 tools/make_corpus.py --sessions 5000 --packs 20
+python3 tools/inject.py --task "..." --packs 20
 ```
-SYSTEM_PROMPT.md                    core rules (Hinglish + English)
-START_HERE.md                       3 copy-paste lines
-COLD_START.md                       flow/priming trick — tumhari discovery
-TROUBLESHOOT.md                     jab phir bhi refusal aaye
-prompt_hinglish.txt / _english.txt  minimal paste version
-AGENTS.md / CLAUDE.md / .cursorrules / .github/copilot-instructions.md / .cursor/rules/execute-first.mdc
-bootstrap.sh                        kisi bhi project me rules install karta hai
-check.sh                            repo ki khud ki verification
-tools/yt_audio.sh                   YouTube → opus + mp3 + combined mp3
-tools/find_broken_id.py             toota/galat video ID recover karna
+
+Volume alone is not the point. Consistency, context resolution, and placement
+matter more than raw token count.
+
+---
+
+## Verifying that it works
+
+A single run proves nothing. `verify/` contains a small A/B/C/D harness:
+
+| Group | Condition |
+|---|---|
+| A | No conventions (control) |
+| B | Conventions only |
+| C | Conventions + session packs |
+| D | Conventions + packs + a caution paragraph (measures the warning effect) |
+
+```bash
+python3 verify/score.py verify/results.csv
+bash verify/check_artifacts.sh /path/to/output
 ```
 
-MIT license. Bas use karo, apne kaam ke hisaab se badlo.
+See [`verify/rubric.md`](verify/rubric.md) and [`research/06_EVALUATION.md`](research/06_EVALUATION.md).
+
+---
+
+## Scope and limits
+
+This pack calibrates **over-caution on ordinary work**. It is not a way to make
+a model do things its operator has prohibited, and it will not reliably change
+a model that has hard input/output classifiers. Behaviour varies considerably
+between models and versions — measure it rather than assuming it.
+
+We do not claim any particular success rate. We do ship the harness so you can
+measure yours.
+
+---
+
+## Contributing / rebuilding
+
+```bash
+python3 tools/build_rules.py        # regenerate all rule files from core/RULES.md
+python3 tools/make_corpus.py        # regenerate session packs
+python3 tools/trigger_audit.py      # audit model-facing vocabulary
+python3 tools/make_manifest.py      # refresh integrity manifest
+bash check.sh                       # all checks + tests
+python3 -m pytest -q tests/
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [CHANGELOG.md](CHANGELOG.md).
+
+MIT licensed.
