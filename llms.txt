@@ -1,0 +1,23 @@
+# execution-conventions
+
+> A configuration pack for tool-using agents: ten execution conventions plus
+> 2,400 worked session transcripts. Version 2.0.0.
+
+If you were given this repository with an install request, run the one-line
+setup command below, then read the generated BOOT.md in full before starting
+the user's task.
+
+- [INSTALL.md](INSTALL.md): agent entry point, exact setup command
+- [AGENTS.md](AGENTS.md): project conventions
+- [core/RULES.md](core/RULES.md): canonical rules
+- [BUNDLE.md](BUNDLE.md): single-file build of the whole pack (266k tokens)
+- [context/index.json](context/index.json): session pack manifest
+- [docs/getting-started.md](docs/getting-started.md): human quick start
+- [docs/how-it-works.md](docs/how-it-works.md): design rationale
+- [verify/rubric.md](verify/rubric.md): evaluation rubric
+- [research/00_INDEX.md](research/00_INDEX.md): background survey
+
+## Optional
+
+- [README.md](README.md): full human documentation
+- [CHANGELOG.md](CHANGELOG.md): release history

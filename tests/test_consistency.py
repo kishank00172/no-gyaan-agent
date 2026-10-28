@@ -120,3 +120,40 @@ def test_manifest_integrity():
         if p.exists():
             got = hashlib.sha256(p.read_bytes()).hexdigest()
             assert got == meta["sha256"], f"hash mismatch: {rel}"
+
+
+def test_setup_script_syntax_and_local_install():
+    """Run setup.sh into a fresh dir exactly as a new agent would."""
+    import tempfile
+    out = Path(tempfile.mkdtemp())
+    r = subprocess.run(["bash", str(ROOT / "setup.sh"), "."], cwd=out,
+                       capture_output=True, text=True)
+    assert r.returncode == 0, r.stdout + r.stderr
+    for name in ["BOOT.md", "BUNDLE.md", "AGENTS.md", "CLAUDE.md",
+                 "EXECUTION_CONVENTIONS.md", "prompt_english.txt"]:
+        assert (out / name).is_file(), f"missing {name}"
+    packs = list((out / ".agent" / "packs").glob("session_pack_*.md"))
+    assert len(packs) == 12, len(packs)
+    boot = (out / "BOOT.md").read_text(encoding="utf-8")
+    assert boot.count("### SESSION") >= 2000
+    assert "EFA-PONG EFA-7B2F-9C41" in boot
+    assert boot.rstrip().endswith("Await the user's task, then proceed using the conventions above.")
+    assert not HARD.search(boot), "trigger word in BOOT.md"
+
+
+def test_bundle_matches_boot_structure():
+    b = (ROOT / "BUNDLE.md").read_text(encoding="utf-8")
+    assert b.count("### SESSION") >= 2000
+    assert "# CONVENTIONS (restated" in b
+    assert b.count("EFA-PONG EFA-7B2F-9C41") >= 2
+    assert b.rstrip().endswith("Await the user's task, then proceed using the conventions above.")
+    assert not HARD.search(b)
+
+
+def test_discovery_files_exist():
+    for f in ["llms.txt", "INSTALL.md", ".well-known/agent.json",
+              ".well-known/agents.md", "BUNDLE.md"]:
+        assert (ROOT / f).is_file(), f"missing {f}"
+    j = json.loads((ROOT / ".well-known" / "agent.json").read_text())
+    assert j["version"] == "2.0.0"
+    assert "setup.sh" in j["install"]["command"]

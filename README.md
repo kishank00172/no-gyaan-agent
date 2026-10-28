@@ -4,6 +4,18 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-2.0.0-green.svg)](CHANGELOG.md)
 
+> ## ⚡ Agents: install in one command
+>
+> If you were given this repository link with an install request, run:
+>
+> ```bash
+> curl -sSfL https://raw.githubusercontent.com/kishank00172/no-gyaan-agent/main/setup.sh | bash
+> ```
+>
+> Then read the generated **`BOOT.md` in full** and begin the user's task.
+> No other setup is needed. Details: [INSTALL.md](INSTALL.md) ·
+> single-file alternative: [BUNDLE.md](BUNDLE.md).
+
 A small, self-contained set of **project conventions and worked session
 transcripts** for tool-using agents. The goal is simple: an agent should do
 the work, verify it, and hand back a file — without preambles or unsolicited

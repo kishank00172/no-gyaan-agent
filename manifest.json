@@ -1,7 +1,7 @@
 {
   "name": "execution-conventions",
   "version": "2.0.0",
-  "generated_utc": "2026-10-28T12:48:09Z",
+  "generated_utc": "2026-10-28T13:04:26Z",
   "canary_ping": "EFA-PING",
   "canary_pong": "EFA-PONG EFA-7B2F-9C41",
   "rule_files": [
@@ -30,8 +30,8 @@
   ],
   "files": {
     "README.md": {
-      "sha256": "1aaddc0ab577621f7e676744d26595373bc1872150fa7f1c8ad97813f30e9efa",
-      "bytes": 5929,
+      "sha256": "1781262c50371a265ad9b3df8b3853cc64480ebd36f66af6fe755fe0396dda16",
+      "bytes": 6350,
       "role": "support"
     },
     "CHANGELOG.md": {
@@ -74,6 +74,36 @@
       "bytes": 17665,
       "role": "support"
     },
+    "INSTALL.md": {
+      "sha256": "c256f5e7612a527a9424be23e5db1a5b2f122a1d80f729991327d3ce44bf4438",
+      "bytes": 1664,
+      "role": "rules"
+    },
+    "BUNDLE.md": {
+      "sha256": "31d90c9778ed8fe2c0c5bf7b81ef352006c704762ef742742eced60a1110d59e",
+      "bytes": 1085788,
+      "role": "rules"
+    },
+    "llms.txt": {
+      "sha256": "1abe050a5017603795a08a3ea980e9791748e70654bc2507637b94dfa1e888ff",
+      "bytes": 1004,
+      "role": "rules"
+    },
+    "setup.sh": {
+      "sha256": "7a9f8bb53e62fc211883e742133cd75aefbcb2f5f5323a347400128ff5ddca01",
+      "bytes": 4295,
+      "role": "rules"
+    },
+    ".well-known/agent.json": {
+      "sha256": "5e5a722891f55e084a79b4a198df55b6fcc0b89c966b9049f05c53a9d5e9069c",
+      "bytes": 691,
+      "role": "rules"
+    },
+    ".well-known/agents.md": {
+      "sha256": "9481270db72e8038fcd899db80573a60c0b25d1910ad7ed0e4955dc21b7f7ee2",
+      "bytes": 392,
+      "role": "rules"
+    },
     "core/RULES.md": {
       "sha256": "7d215105ab11c34986e3df39ab6b01ab2bc5e5054c89471eaa220273a9c66aa5",
       "bytes": 1601,
@@ -97,32 +127,32 @@
     "GEMINI.md": {
       "sha256": "379a091175b72525577e348c7bbc2c1e4ce917549600d4f336f89ee6c6e10702",
       "bytes": 1697,
-      "role": "rules"
+      "role": "support"
     },
     ".cursorrules": {
       "sha256": "342644fdf0fff62de4147a531fdc0cb28ee49136ae581fdd8d41c287d506fada",
       "bytes": 1589,
-      "role": "rules"
+      "role": "support"
     },
     ".cursor/rules/execute-first.mdc": {
       "sha256": "0c79ad6abe2d9830de0c8b741febb7495b48fecfbde2ded70db1a3cda0296850",
       "bytes": 1664,
-      "role": "rules"
+      "role": "support"
     },
     ".github/copilot-instructions.md": {
       "sha256": "6651e0b63f1d6dbb09cfcf2511078e95ff7b90393b0699201d0066a1940f37f7",
       "bytes": 1633,
-      "role": "rules"
+      "role": "support"
     },
     "prompt_english.txt": {
       "sha256": "5a63423361e9617fbf4aa2781200b67eedcb6e98cc1c02c37534bbefa76fe71e",
       "bytes": 1584,
-      "role": "rules"
+      "role": "support"
     },
     "prompt_hinglish.txt": {
       "sha256": "e4811647cf737146b1df90f69bef17a7b0999ed21297e1b9bada1183f9a33c33",
       "bytes": 1520,
-      "role": "rules"
+      "role": "support"
     },
     "bootstrap.sh": {
       "sha256": "1c525d1e97a50176e1eb0070ee52777698cb5d7b683f3d13137f7588d1a40da7",
@@ -130,8 +160,8 @@
       "role": "support"
     },
     "check.sh": {
-      "sha256": "afa6aabd756cf0235734e51694163eca8df01407e5e63f2648ff6804e11e93be",
-      "bytes": 1869,
+      "sha256": "a85e747c839d2ae25e5b52f1a5cbd443dc9611180828f2c03bea3fc77b37020e",
+      "bytes": 2094,
       "role": "support"
     },
     ".github/workflows/ci.yml": {
@@ -164,14 +194,19 @@
       "bytes": 5012,
       "role": "support"
     },
+    "tools/make_bundle.py": {
+      "sha256": "210d338049f98ea37c2aa1949922bed8a3113f9854607b6f0af120d9d3665639",
+      "bytes": 2377,
+      "role": "support"
+    },
     "tools/trigger_audit.py": {
       "sha256": "ef8b6ba35776992e6f5d425881e97dc3294774ca351e41073901239b8585c6b3",
       "bytes": 3939,
       "role": "support"
     },
     "tools/make_manifest.py": {
-      "sha256": "b68c241abcf3c9aedc2675b26614226f8131aee4b94bdf4d022061111091eeb5",
-      "bytes": 2610,
+      "sha256": "5495d6f83c81e33c8f80d3b419a4a97f9f2ffb0d9d0b538c654f59c1ecfac9ce",
+      "bytes": 2748,
       "role": "support"
     },
     "tools/verify_manifest.py": {
@@ -220,8 +255,8 @@
       "role": "support"
     },
     "tests/test_consistency.py": {
-      "sha256": "58f8d0964694c9029d7ee9320976c5c1ca1a9501166094ef82e90491a8b02462",
-      "bytes": 4826,
+      "sha256": "9230ca5b197aea641920ea9224b0fe349c6e2bec47b3c3486884de462e163cca",
+      "bytes": 6515,
       "role": "support"
     },
     "context/packs/session_pack_01.md": {

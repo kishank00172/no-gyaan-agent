@@ -16,6 +16,12 @@ echo "  packs: $n"
 echo "=== 3. trigger audit (model-facing vocabulary) ==="
 python3 tools/trigger_audit.py --strict | tail -6 || fail=1
 
+echo "=== 3b. BUNDLE.md (single-file install target) ==="
+python3 tools/make_bundle.py | tail -1 || fail=1
+
+echo "=== 3c. setup.sh syntax ==="
+bash -n setup.sh && echo "  OK   bash -n setup.sh" || { echo "  FAIL"; fail=1; }
+
 echo "=== 4. inject smoke test ==="
 python3 tools/inject.py --task "check.sh smoke test" --packs 2 --out out/check_smoke.txt >/dev/null \
   && echo "  OK   inject.py" || { echo "  FAIL"; fail=1; }
